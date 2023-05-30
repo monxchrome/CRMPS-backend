@@ -1,5 +1,9 @@
 import { model, Schema, Types } from "mongoose";
 
+import { ECourse } from "../enums/course.enum";
+import { ECourseFormat } from "../enums/courseFormat.enum";
+import { ECourseType } from "../enums/courseType.enum";
+import { EStatus } from "../enums/status.enum";
 import { Admin } from "./Admin.model";
 
 export const userSchema = new Schema(
@@ -36,16 +40,25 @@ export const userSchema = new Schema(
     },
     course: {
       type: String,
+      enum: ECourse,
       required: false,
       default: null,
     },
     course_format: {
       type: String,
+      enum: ECourseFormat,
+      required: false,
+      default: null,
+    },
+    course_type: {
+      type: String,
+      enum: ECourseType,
       required: false,
       default: null,
     },
     status: {
       type: String,
+      enum: EStatus,
       required: false,
       default: null,
     },
