@@ -1,3 +1,7 @@
+import { Types } from "mongoose";
+
+import { IAdmin } from "./admin.types";
+
 export interface IUser {
   name: string;
   surname: string;
@@ -9,4 +13,5 @@ export interface IUser {
   status: string;
   sum: number;
   alreadyPaid: number;
+  manager: IAdmin | Types.ObjectId;
 }

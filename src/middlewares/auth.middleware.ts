@@ -6,6 +6,34 @@ import { Token } from "../models/Token.model";
 import { tokenService } from "../services/token.service";
 
 class AuthMiddleware {
+  public async checkAccessToken(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const accessToken = req.get("Authorization");
+
+      if (!accessToken) {
+        throw new ApiError("Your access token is expired", 404);
+      }
+
+      const jwtPayload = tokenService.checkToken(accessToken);
+      const tokenData = await Token.findOne({ accessToken }).populate(
+        "_admin_id"
+      );
+
+      if (!tokenData) {
+        throw new ApiError("Access token is not valid", 401);
+      }
+
+      req.res.locals = { tokenData, jwtPayload, admin: tokenData._admin_id };
+      next();
+    } catch (e) {
+      next(e);
+    }
+  }
+
   public async checkRefreshToken(
     req: Request,
     res: Response,
