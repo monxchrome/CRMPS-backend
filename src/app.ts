@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 import { configs } from "./config/config";
 import { authRouter } from "./router/auth.router";
-import { userRouter } from "./router/user.router";
+import { orderRouter } from "./router/order.router";
 import { IError } from "./types/common.types";
 
 config();
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/auth", authRouter);
-app.use("/users", userRouter);
+app.use("/users", orderRouter);
 
 app.use((err: IError, req: Request, res: Response, next: NextFunction) => {
   const status = err.status || 400;

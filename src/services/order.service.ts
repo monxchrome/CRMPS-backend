@@ -1,11 +1,12 @@
-import { ApiError } from "../errors/api.error";
-import { User } from "../models/User.model";
-import { userRepository } from "../repository/user.repository";
-import { IPaginationResponse, IQuery } from "../types/pagination.types";
-import { IUser } from "../types/user.types";
-import {Types} from "mongoose";
+import { Types } from "mongoose";
 
-class UserService {
+import { ApiError } from "../errors/api.error";
+import { Order } from "../models/Order.model";
+import { userRepository } from "../repository/order.repository";
+import { IOrder } from "../types/order.types";
+import { IPaginationResponse, IQuery } from "../types/pagination.types";
+
+class OrderService {
   public async getPagination(query: IQuery): Promise<IPaginationResponse<any>> {
     try {
       const queryStr = JSON.stringify(query);
@@ -23,12 +24,12 @@ class UserService {
       } = queryObj;
 
       const skip = limit * (page - 1);
-      const cars = await User.find(searchObject)
+      const cars = await Order.find(searchObject)
         .limit(limit)
         .skip(skip)
         .sort(sort)
         .lean();
-      const carsCount = await User.count();
+      const carsCount = await Order.count();
 
       return {
         page: +page,
@@ -42,7 +43,7 @@ class UserService {
     }
   }
 
-  public async getById(userId: string, adminId: string): Promise<IUser> {
+  public async getById(userId: string, adminId: string): Promise<IOrder> {
     try {
       return await userRepository.getByAdminAndUser(userId, adminId);
     } catch (e) {
@@ -50,9 +51,9 @@ class UserService {
     }
   }
 
-  public async create(data: IUser, adminId: string) {
+  public async create(data: IOrder, adminId: string) {
     try {
-      return await User.create({ ...data, user: new Types.ObjectId(adminId) });
+      return await Order.create({ ...data, admin: new Types.ObjectId(adminId) });
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }
@@ -60,7 +61,7 @@ class UserService {
 
   public async update(id: string, body: object) {
     try {
-      return User.findByIdAndUpdate({ _id: id }, { ...body }, { new: true });
+      return Order.findByIdAndUpdate({ _id: id }, { ...body }, { new: true });
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }
@@ -68,11 +69,11 @@ class UserService {
 
   public async delete(id: string) {
     try {
-      return User.deleteOne({ _id: id });
+      return Order.deleteOne({ _id: id });
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }
   }
 }
 
-export const userService = new UserService();
+export const orderService = new OrderService();

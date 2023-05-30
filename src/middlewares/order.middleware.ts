@@ -2,12 +2,12 @@ import { NextFunction, Request, Response } from "express";
 import { isObjectIdOrHexString } from "mongoose";
 
 import { ApiError } from "../errors/api.error";
-import { User } from "../models/User.model";
+import { Order } from "../models/Order.model";
 import { IRequest } from "../types/common.types";
 import { AuthValidator } from "../validators/auth.validator";
-import { UserValidator } from "../validators/user.validator";
+import { OrderValidator } from "../validators/order.validator";
 
-class UserMiddleware {
+class OrderMiddleware {
   public async isValidLogin(
     req: Request,
     res: Response,
@@ -36,7 +36,7 @@ class UserMiddleware {
       try {
         const fieldValue = req[from][fieldName];
 
-        const admin = await User.findOne({ [dbField]: fieldValue });
+        const admin = await Order.findOne({ [dbField]: fieldValue });
 
         if (!admin) {
           throw new ApiError(`Admin not found`, 422);
@@ -57,7 +57,7 @@ class UserMiddleware {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { error, value } = UserValidator.create.validate(req.body);
+      const { error, value } = OrderValidator.create.validate(req.body);
 
       if (error) {
         return next(new ApiError(error.message, 405));
@@ -93,7 +93,7 @@ class UserMiddleware {
     try {
       const { userId } = req.params;
 
-      const user = await User.findById(userId);
+      const user = await Order.findById(userId);
 
       if (!user) {
         throw new ApiError("User not found!", 404);
@@ -112,7 +112,7 @@ class UserMiddleware {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { error, value } = UserValidator.update.validate(req.body);
+      const { error, value } = OrderValidator.update.validate(req.body);
 
       if (error) {
         next(new ApiError(error.message, 400));
@@ -126,4 +126,4 @@ class UserMiddleware {
   }
 }
 
-export const userMiddleware = new UserMiddleware();
+export const orderMiddleware = new OrderMiddleware();

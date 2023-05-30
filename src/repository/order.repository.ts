@@ -1,14 +1,14 @@
 import { Types } from "mongoose";
 
-import { User } from "../models/User.model";
-import { IUser } from "../types/user.types";
+import { Order } from "../models/Order.model";
+import { IOrder } from "../types/order.types";
 
-class UserRepository {
+class OrderRepository {
   public async getByAdminAndUser(
     userId: string,
     adminId: string
-  ): Promise<IUser> {
-    const result = await User.aggregate([
+  ): Promise<IOrder> {
+    const result = await Order.aggregate([
       {
         $match: {
           // search for adminId and userId
@@ -36,4 +36,4 @@ class UserRepository {
   }
 }
 
-export const userRepository = new UserRepository();
+export const userRepository = new OrderRepository();

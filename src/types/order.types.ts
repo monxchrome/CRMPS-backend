@@ -2,7 +2,7 @@ import { Types } from "mongoose";
 
 import { IAdmin } from "./admin.types";
 
-export interface IUser {
+export interface IOrder {
   name: string;
   surname: string;
   email: string;

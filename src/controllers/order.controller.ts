@@ -1,19 +1,19 @@
 import { NextFunction, Request, Response } from "express";
 
-import { userService } from "../services/user.service";
+import { orderService } from "../services/order.service";
+import { ICommonRes } from "../types/common.types";
+import { IOrder } from "../types/order.types";
 import { IQuery } from "../types/pagination.types";
-import { IUser } from "../types/user.types";
-import {ICommonRes} from "../types/common.types";
-import {ITokenPayload} from "../types/token.types";
+import { ITokenPayload } from "../types/token.types";
 
-class UserController {
+class OrderController {
   public async getAll(
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<IUser[]>> {
+  ): Promise<Response<IOrder[]>> {
     try {
-      const users = await userService.getPagination(
+      const users = await orderService.getPagination(
         req.query as unknown as IQuery
       );
 
@@ -27,10 +27,10 @@ class UserController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<IUser>> {
+  ): Promise<Response<IOrder>> {
     try {
       const { user, jwtPayload } = res.locals;
-      const result = await userService.getById(user._id, jwtPayload._id);
+      const result = await orderService.getById(user._id, jwtPayload._id);
 
       return res.json(result);
     } catch (e) {
@@ -42,10 +42,10 @@ class UserController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<ICommonRes<IUser>>> {
+  ): Promise<Response<ICommonRes<IOrder>>> {
     try {
       const { _id } = req.res.locals.jwtPayload as ITokenPayload;
-      const user = await userService.create(req.body, _id);
+      const user = await orderService.create(req.body, _id);
 
       return res.status(200).json({
         message: "User created",
@@ -60,12 +60,12 @@ class UserController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<ICommonRes<IUser>>> {
+  ): Promise<Response<ICommonRes<IOrder>>> {
     try {
       const { userId } = req.params;
       const user = req.body;
 
-      await userService.update(userId, user);
+      await orderService.update(userId, user);
 
       return res.json({
         message: "Car updated",
@@ -79,11 +79,11 @@ class UserController {
     req: Request,
     res: Response,
     next: NextFunction
-  ): Promise<Response<ICommonRes<IUser>>> {
+  ): Promise<Response<ICommonRes<IOrder>>> {
     try {
       const { userId } = req.params;
 
-      const deleteUser = await userService.delete(userId);
+      const deleteUser = await orderService.delete(userId);
       return res.json({
         message: "User deleted",
         data: deleteUser,
@@ -94,4 +94,4 @@ class UserController {
   }
 }
 
-export const userController = new UserController();
+export const orderController = new OrderController();

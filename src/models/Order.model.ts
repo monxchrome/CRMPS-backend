@@ -6,7 +6,7 @@ import { ECourseType } from "../enums/courseType.enum";
 import { EStatus } from "../enums/status.enum";
 import { Admin } from "./Admin.model";
 
-export const userSchema = new Schema(
+export const orderSchema = new Schema(
   {
     name: {
       type: String,
@@ -88,4 +88,4 @@ export const userSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-export const User = model("user", userSchema);
+export const Order = model("order", orderSchema);

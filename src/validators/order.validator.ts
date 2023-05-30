@@ -6,7 +6,7 @@ import { ECourseFormat } from "../enums/courseFormat.enum";
 import { ECourseType } from "../enums/courseType.enum";
 import { EStatus } from "../enums/status.enum";
 
-export class UserValidator {
+export class OrderValidator {
   private static firstName = Joi.string().min(1).max(20).trim();
   private static surname = Joi.string().min(1).max(20).trim();
   private static email = Joi.string()

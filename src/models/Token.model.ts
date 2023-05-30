@@ -1,13 +1,13 @@
 import { model, Schema, Types } from "mongoose";
 
-import { User } from "./User.model";
+import { Order } from "./Order.model";
 
 const tokenSchema = new Schema(
   {
     _admin_id: {
       type: Types.ObjectId,
       required: true,
-      ref: User,
+      ref: Order,
     },
     accessToken: {
       type: String,
