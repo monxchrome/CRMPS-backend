@@ -3,6 +3,7 @@ import { Router } from "express";
 import { authController } from "../controllers/auth.controller";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import { orderMiddleware } from "../middlewares/order.middleware";
+import {adminMiddleware} from "../middlewares/admin.middleware";
 
 const router = Router();
 
@@ -15,7 +16,12 @@ router.post(
   authController.login
 );
 
-router.post('/register')
+router.post(
+  "/register",
+  adminMiddleware.isValidCreate,
+  adminMiddleware.getDynamicallyAndThrow("email", "body"),
+  authController.register
+);
 
 router.post(
   "/refresh",
