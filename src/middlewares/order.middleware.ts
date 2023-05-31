@@ -76,8 +76,8 @@ class OrderMiddleware {
     next: NextFunction
   ): Promise<void> {
     try {
-      if (!isObjectIdOrHexString(req.params.userId)) {
-        return next(new ApiError("User id is not valid", 422));
+      if (!isObjectIdOrHexString(req.params.orderId)) {
+        return next(new ApiError("Order id is not valid", 422));
       }
       next();
     } catch (e) {
@@ -91,15 +91,15 @@ class OrderMiddleware {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { userId } = req.params;
+      const { orderId } = req.params;
 
-      const user = await Order.findById(userId);
+      const order = await Order.findById(orderId);
 
-      if (!user) {
-        throw new ApiError("User not found!", 404);
+      if (!order) {
+        throw new ApiError("Order not found!", 404);
       }
 
-      res.locals.user = user;
+      res.locals.order = order;
       next();
     } catch (e) {
       next(e);

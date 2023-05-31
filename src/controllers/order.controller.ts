@@ -13,11 +13,11 @@ class OrderController {
     next: NextFunction
   ): Promise<Response<IOrder[]>> {
     try {
-      const users = await orderService.getPagination(
+      const orders = await orderService.getPagination(
         req.query as unknown as IQuery
       );
 
-      return res.json(users);
+      return res.json(orders);
     } catch (e) {
       next(e);
     }
@@ -29,8 +29,8 @@ class OrderController {
     next: NextFunction
   ): Promise<Response<IOrder>> {
     try {
-      const { user, jwtPayload } = res.locals;
-      const result = await orderService.getById(user._id, jwtPayload._id);
+      const { order, jwtPayload } = res.locals;
+      const result = await orderService.getById(order._id, jwtPayload._id);
 
       return res.json(result);
     } catch (e) {
@@ -45,11 +45,11 @@ class OrderController {
   ): Promise<Response<ICommonRes<IOrder>>> {
     try {
       const { _id } = req.res.locals.jwtPayload as ITokenPayload;
-      const user = await orderService.create(req.body, _id);
+      const order = await orderService.create(req.body, _id);
 
       return res.status(200).json({
-        message: "User created",
-        data: user,
+        message: "Order created",
+        data: order,
       });
     } catch (e) {
       next(e);
@@ -62,31 +62,13 @@ class OrderController {
     next: NextFunction
   ): Promise<Response<ICommonRes<IOrder>>> {
     try {
-      const { userId } = req.params;
+      const { orderId } = req.params;
       const user = req.body;
 
-      await orderService.update(userId, user);
+      await orderService.update(orderId, user);
 
       return res.json({
         message: "Car updated",
-      });
-    } catch (e) {
-      next(e);
-    }
-  }
-
-  public async delete(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response<ICommonRes<IOrder>>> {
-    try {
-      const { userId } = req.params;
-
-      const deleteUser = await orderService.delete(userId);
-      return res.json({
-        message: "User deleted",
-        data: deleteUser,
       });
     } catch (e) {
       next(e);

@@ -18,7 +18,7 @@ router.post(
 );
 
 router.get(
-  "/:userId",
+  "/:orderId",
   authMiddleware.checkAccessToken,
   orderMiddleware.isIDValid,
   orderMiddleware.getByIdOrThrow,
@@ -26,18 +26,10 @@ router.get(
 );
 
 router.put(
-  "/:carID",
+  "/:orderId",
   authMiddleware.checkAccessToken,
   orderMiddleware.isIDValid,
   orderMiddleware.isValidUpdate,
   orderMiddleware.getByIdOrThrow,
   orderController.update
-);
-
-router.delete(
-  "/:carID",
-  authMiddleware.checkAccessToken,
-  orderMiddleware.isIDValid,
-  orderMiddleware.getByIdOrThrow,
-  orderController.delete
 );

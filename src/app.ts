@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import { configs } from "./config/config";
 import { cronRunner } from "./cron";
 import { authRouter } from "./router/auth.router";
+import { commentRouter } from "./router/comment.router";
 import { orderRouter } from "./router/order.router";
 import { IError } from "./types/common.types";
 
@@ -16,7 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/auth", authRouter);
-app.use("/users", orderRouter);
+app.use("/orders", orderRouter);
+app.use("/comments", commentRouter);
 
 app.use((err: IError, req: Request, res: Response, next: NextFunction) => {
   const status = err.status || 400;

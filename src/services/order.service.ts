@@ -14,8 +14,6 @@ class OrderService {
         queryStr.replace(/\b(gte|lte|gt|lt)\b/, (match) => `$${match}`)
       );
 
-      // --
-
       const {
         page = 1,
         limit = 25,
@@ -24,28 +22,28 @@ class OrderService {
       } = queryObj;
 
       const skip = limit * (page - 1);
-      const cars = await Order.find(searchObject)
+      const orders = await Order.find(searchObject)
         .limit(limit)
         .skip(skip)
         .sort(sort)
         .lean();
-      const carsCount = await Order.count();
+      const ordersCount = await Order.count();
 
       return {
         page: +page,
         perPage: +limit,
-        valueCount: carsCount,
-        valueFound: cars.length,
-        data: cars,
+        valueCount: ordersCount,
+        valueFound: orders.length,
+        data: orders,
       };
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }
   }
 
-  public async getById(userId: string, adminId: string): Promise<IOrder> {
+  public async getById(orderId: string, adminId: string): Promise<IOrder> {
     try {
-      return await userRepository.getByAdminAndUser(userId, adminId);
+      return await userRepository.getByAdminAndUser(orderId, adminId);
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }
@@ -53,7 +51,10 @@ class OrderService {
 
   public async create(data: IOrder, adminId: string) {
     try {
-      return await Order.create({ ...data, admin: new Types.ObjectId(adminId) });
+      return await Order.create({
+        ...data,
+        admin: new Types.ObjectId(adminId),
+      });
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }
@@ -62,14 +63,6 @@ class OrderService {
   public async update(id: string, body: object) {
     try {
       return Order.findByIdAndUpdate({ _id: id }, { ...body }, { new: true });
-    } catch (e) {
-      throw new ApiError(e.message, e.status);
-    }
-  }
-
-  public async delete(id: string) {
-    try {
-      return Order.deleteOne({ _id: id });
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }

@@ -1,6 +1,7 @@
 import { Types } from "mongoose";
 
 import { IAdmin } from "./admin.types";
+import {IComment} from "./comment.types";
 
 export interface IOrder {
   name: string;
@@ -14,4 +15,5 @@ export interface IOrder {
   sum: number;
   alreadyPaid: number;
   manager: IAdmin | Types.ObjectId;
+  comments: IComment | Types.ObjectId;
 }

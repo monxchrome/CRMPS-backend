@@ -15,6 +15,8 @@ router.post(
   authController.login
 );
 
+router.post('/register')
+
 router.post(
   "/refresh",
   authMiddleware.checkRefreshToken,

@@ -5,6 +5,7 @@ import { ECourseFormat } from "../enums/courseFormat.enum";
 import { ECourseType } from "../enums/courseType.enum";
 import { EStatus } from "../enums/status.enum";
 import { Admin } from "./Admin.model";
+import { Comment } from "./Comment.model";
 
 export const orderSchema = new Schema(
   {
@@ -83,6 +84,11 @@ export const orderSchema = new Schema(
       required: false,
       default: null,
       ref: Admin,
+    },
+    comments: {
+      type: Types.ObjectId,
+      ref: Comment,
+      default: null,
     },
   },
   { versionKey: false, timestamps: true }
