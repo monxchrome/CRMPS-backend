@@ -5,29 +5,28 @@ import { IOrder } from "../types/order.types";
 
 class OrderRepository {
   public async getByAdminAndUser(
-    userId: string,
+    orderId: string,
     adminId: string
   ): Promise<IOrder> {
     const result = await Order.aggregate([
       {
         $match: {
-          // search for adminId and userId
-          _id: userId,
-          admin: new Types.ObjectId(adminId),
+          _id: orderId,
+          manager: new Types.ObjectId(adminId),
         },
       },
       {
         $lookup: {
           from: "admins", // model in db "admins" (users model)
-          localField: "admin", // field in db "admin".ref. (cars model)
+          localField: "manager", // field in db "admin".ref. (cars model)
           foreignField: "_id", // id of admin
-          as: "admin", // name how in localField
+          as: "manager", // name how in localField
         },
       },
       {
         $unwind: {
           // structure array of admin is off
-          path: "$admin",
+          path: "$manager",
           preserveNullAndEmptyArrays: true,
         },
       },

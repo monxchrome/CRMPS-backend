@@ -11,4 +11,6 @@ export const configs = {
 
   FORGOT_SECRET: process.env.FORGOT_SECRET,
   ACTIVATE_SECRET: process.env.ACTIVATE_SECRET,
+
+  PASSWORD_SALT: process.env.PASSWORD_SALT,
 };

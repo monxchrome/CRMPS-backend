@@ -53,7 +53,7 @@ class OrderService {
     try {
       return await Order.create({
         ...data,
-        admin: new Types.ObjectId(adminId),
+        manager: new Types.ObjectId(adminId),
       });
     } catch (e) {
       throw new ApiError(e.message, e.status);

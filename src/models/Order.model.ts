@@ -81,8 +81,7 @@ export const orderSchema = new Schema(
     },
     manager: {
       type: Types.ObjectId,
-      required: false,
-      default: null,
+      required: [true, "REF: Manager is required"],
       ref: Admin,
     },
     comments: {

@@ -1,9 +1,8 @@
 import { Router } from "express";
 
 import { authController } from "../controllers/auth.controller";
+import { adminMiddleware } from "../middlewares/admin.middleware";
 import { authMiddleware } from "../middlewares/auth.middleware";
-import { orderMiddleware } from "../middlewares/order.middleware";
-import {adminMiddleware} from "../middlewares/admin.middleware";
 
 const router = Router();
 
@@ -11,14 +10,13 @@ export const authRouter = router;
 
 router.post(
   "/login",
-  orderMiddleware.isValidLogin,
-  orderMiddleware.getDynamicallyOrThrow("email"),
+  adminMiddleware.isValidLogin,
+  adminMiddleware.getDynamicallyOrThrow("email"),
   authController.login
 );
 
 router.post(
   "/register",
-  adminMiddleware.isValidCreate,
   adminMiddleware.getDynamicallyAndThrow("email", "body"),
   authController.register
 );

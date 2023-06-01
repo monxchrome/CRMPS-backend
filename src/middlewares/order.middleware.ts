@@ -4,29 +4,9 @@ import { isObjectIdOrHexString } from "mongoose";
 import { ApiError } from "../errors/api.error";
 import { Order } from "../models/Order.model";
 import { IRequest } from "../types/common.types";
-import { AuthValidator } from "../validators/auth.validator";
 import { OrderValidator } from "../validators/order.validator";
 
 class OrderMiddleware {
-  public async isValidLogin(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<void> {
-    try {
-      const { error, value } = AuthValidator.loginUser.validate(req.body);
-
-      if (error) {
-        next(new ApiError(error.message, 400));
-      }
-
-      req.body = value;
-      next();
-    } catch (e) {
-      next(e);
-    }
-  }
-
   public getDynamicallyOrThrow(
     fieldName: string,
     from = "body",

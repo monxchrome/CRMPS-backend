@@ -4,6 +4,7 @@ import { ApiError } from "../errors/api.error";
 import { Admin } from "../models/Admin.model";
 import { IRequest } from "../types/common.types";
 import { AdminValidator } from "../validators/admin.validator";
+import { AuthValidator } from "../validators/auth.validator";
 
 class AdminMiddleware {
   public async isValidCreate(
@@ -48,6 +49,49 @@ class AdminMiddleware {
         next(e);
       }
     };
+  }
+
+  public getDynamicallyOrThrow(
+    fieldName: string,
+    from = "body",
+    dbField = fieldName
+  ) {
+    return async (req: IRequest, res: Response, next: NextFunction) => {
+      try {
+        const fieldValue = req[from][fieldName];
+
+        const admin = await Admin.findOne({ [dbField]: fieldValue });
+
+        if (!admin) {
+          throw new ApiError(`Admin not found`, 422);
+        }
+
+        res.locals.admin = admin;
+
+        next();
+      } catch (e) {
+        next(e);
+      }
+    };
+  }
+
+  public async isValidLogin(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const { error, value } = AuthValidator.loginUser.validate(req.body);
+
+      if (error) {
+        next(new ApiError(error.message, 400));
+      }
+
+      req.body = value;
+      next();
+    } catch (e) {
+      next(e);
+    }
   }
 }
 

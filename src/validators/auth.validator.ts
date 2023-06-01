@@ -7,7 +7,7 @@ export class AuthValidator {
     .regex(regexConstants.EMAIL)
     .lowercase()
     .trim();
-  private static password = Joi.string().regex(regexConstants.PASSWORD);
+  private static password = Joi.string().min(1).max(10);
 
   static loginUser = Joi.object({
     email: this.email.required(),

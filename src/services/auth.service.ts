@@ -1,4 +1,5 @@
 import { ApiError } from "../errors/api.error";
+import { Admin } from "../models/Admin.model";
 import { Token } from "../models/Token.model";
 import { IAdmin } from "../types/admin.types";
 import { ICredentials } from "../types/auth.types";
@@ -27,7 +28,7 @@ class AuthService {
       });
 
       await Token.create({
-        _user_id: admin._id,
+        _admin_id: admin._id,
         ...tokenPair,
       });
 
@@ -53,6 +54,21 @@ class AuthService {
       ]);
 
       return tokenPair;
+    } catch (e) {
+      throw new ApiError(e.message, e.status);
+    }
+  }
+
+  public async register(body: IAdmin): Promise<void> {
+    try {
+      const { password } = body;
+
+      const hashedPassword = await oauthService.hash(password);
+
+      await Admin.create({
+        ...body,
+        password: hashedPassword,
+      });
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }

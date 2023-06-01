@@ -36,6 +36,16 @@ class AuthController {
       next(e);
     }
   }
+
+  public async register(req: Request, res: Response, next: NextFunction) {
+    try {
+      await authService.register(req.body);
+
+      res.sendStatus(201);
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 export const authController = new AuthController();
