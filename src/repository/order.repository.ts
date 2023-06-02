@@ -11,23 +11,30 @@ class OrderRepository {
     const result = await Order.aggregate([
       {
         $match: {
-          _id: orderId,
+          _id: new Types.ObjectId(orderId),
           manager: new Types.ObjectId(adminId),
         },
       },
       {
         $lookup: {
-          from: "admins", // model in db "admins" (users model)
-          localField: "manager", // field in db "admin".ref. (cars model)
-          foreignField: "_id", // id of admin
-          as: "manager", // name how in localField
+          from: "admins",
+          localField: "manager",
+          foreignField: "_id",
+          as: "manager",
         },
       },
       {
         $unwind: {
-          // structure array of admin is off
           path: "$manager",
           preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "comments",
+          localField: "comments",
+          foreignField: "_id",
+          as: "comments",
         },
       },
     ]);

@@ -1,8 +1,10 @@
+import { Types } from "mongoose";
+
 import { ApiError } from "../errors/api.error";
 import { Comment } from "../models/Comment.model";
+import { Order } from "../models/Order.model";
 import { IComment } from "../types/comment.types";
 import { IPaginationResponse, IQuery } from "../types/pagination.types";
-import {Types} from "mongoose";
 
 class CommentService {
   public async getPagination(query: IQuery): Promise<IPaginationResponse<any>> {
@@ -40,12 +42,19 @@ class CommentService {
     }
   }
 
-  public async create(data: IComment, userId: string) {
+  public async create(orderId: string, data: IComment, userId: string) {
     try {
-      return await Comment.create({
+      const comment = await Comment.create({
         ...data,
         user: new Types.ObjectId(userId),
       });
+
+      await Order.updateOne(
+        { _id: orderId, comments: null },
+        { comments: comment }
+      );
+
+      return comment;
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }

@@ -10,7 +10,7 @@ export const commentSchema = new Schema(
     },
     user: {
       type: Types.ObjectId,
-      required: [true, "REF is required"],
+      required: [true, "REF user is required"],
       ref: Admin,
     },
   },

@@ -63,12 +63,12 @@ class OrderController {
   ): Promise<Response<ICommonRes<IOrder>>> {
     try {
       const { orderId } = req.params;
-      const user = req.body;
+      const order = req.body;
 
-      await orderService.update(orderId, user);
+      await orderService.update(orderId, order);
 
       return res.json({
-        message: "Car updated",
+        message: "Order updated",
       });
     } catch (e) {
       next(e);

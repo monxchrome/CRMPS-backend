@@ -30,7 +30,8 @@ class CommentController {
   ): Promise<Response<ICommonRes<IComment>>> {
     try {
       const { _id } = req.res.locals.jwtPayload as ITokenPayload;
-      const comment = await commentService.create(req.body, _id);
+      const { orderId } = req.params;
+      const comment = await commentService.create(orderId, req.body, _id);
 
       return res.status(200).json({
         message: "Comment created",
