@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { isObjectIdOrHexString } from "mongoose";
 
-import { ApiError } from "../errors/api.error";
-import { Order } from "../models/Order.model";
-import { IRequest } from "../types/common.types";
-import { OrderValidator } from "../validators/order.validator";
+import { ApiError } from "../errors";
+import { Order } from "../models";
+import { IRequest } from "../types";
+import { OrderValidator } from "../validators";
 
 class OrderMiddleware {
   public getDynamicallyOrThrow(

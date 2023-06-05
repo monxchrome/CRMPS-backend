@@ -1,10 +1,7 @@
 import Joi from "joi";
 
-import { regexConstants } from "../config/constants/regex.constants";
-import { ECourse } from "../enums/course.enum";
-import { ECourseFormat } from "../enums/courseFormat.enum";
-import { ECourseType } from "../enums/courseType.enum";
-import { EStatus } from "../enums/status.enum";
+import { regexConstants } from "../config";
+import { ECourse, ECourseFormat, ECourseType, EStatus } from "../enums";
 
 export class OrderValidator {
   private static firstName = Joi.string().min(1).max(20).trim();

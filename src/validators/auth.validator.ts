@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-import { regexConstants } from "../config/constants/regex.constants";
+import { regexConstants } from "../config";
 
 export class AuthValidator {
   private static email = Joi.string()

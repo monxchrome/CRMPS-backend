@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 
-import { ApiError } from "../errors/api.error";
-import { Admin } from "../models/Admin.model";
-import { IRequest } from "../types/common.types";
-import { AdminValidator } from "../validators/admin.validator";
-import { AuthValidator } from "../validators/auth.validator";
+import { ApiError } from "../errors";
+import { Admin } from "../models";
+import { IRequest } from "../types";
+import { AdminValidator, AuthValidator } from "../validators";
 
 class AdminMiddleware {
   public async isValidCreate(

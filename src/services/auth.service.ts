@@ -1,9 +1,6 @@
-import { ApiError } from "../errors/api.error";
-import { Admin } from "../models/Admin.model";
-import { Token } from "../models/Token.model";
-import { IAdmin } from "../types/admin.types";
-import { ICredentials } from "../types/auth.types";
-import { ITokenPair, ITokenPayload } from "../types/token.types";
+import { ApiError } from "../errors";
+import { Admin, Token } from "../models";
+import { IAdmin, ICredentials, ITokenPair, ITokenPayload } from "../types";
 import { oauthService } from "./oauth.service";
 import { tokenService } from "./token.service";
 

@@ -2,12 +2,10 @@ import { config } from "dotenv";
 import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 
-import { configs } from "./config/config";
+import { configs } from "./config";
 import { cronRunner } from "./cron";
-import { authRouter } from "./router/auth.router";
-import { commentRouter } from "./router/comment.router";
-import { orderRouter } from "./router/order.router";
-import { IError } from "./types/common.types";
+import { authRouter, commentRouter, orderRouter } from "./router";
+import { IError } from "./types";
 
 config();
 

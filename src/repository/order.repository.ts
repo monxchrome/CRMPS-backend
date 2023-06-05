@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 
-import { Order } from "../models/Order.model";
-import { IOrder } from "../types/order.types";
+import { Order } from "../models";
+import { IOrder } from "../types";
 
 class OrderRepository {
   public async getByAdminAndUser(

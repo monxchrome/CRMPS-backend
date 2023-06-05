@@ -1,10 +1,8 @@
 import { Types } from "mongoose";
 
-import { ApiError } from "../errors/api.error";
-import { Comment } from "../models/Comment.model";
-import { Order } from "../models/Order.model";
-import { IComment } from "../types/comment.types";
-import { IPaginationResponse, IQuery } from "../types/pagination.types";
+import { ApiError } from "../errors";
+import { Comment, Order } from "../models";
+import { IComment, IPaginationResponse, IQuery } from "../types";
 
 class CommentService {
   public async getPagination(query: IQuery): Promise<IPaginationResponse<any>> {

@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 
-import { EToken } from "../enums/token.enum";
-import { ApiError } from "../errors/api.error";
-import { Token } from "../models/Token.model";
-import { tokenService } from "../services/token.service";
+import { EToken } from "../enums";
+import { ApiError } from "../errors";
+import { Token } from "../models";
+import { tokenService } from "../services";
 
 class AuthMiddleware {
   public async checkAccessToken(

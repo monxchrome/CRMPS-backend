@@ -1,9 +1,6 @@
 import { model, Schema, Types } from "mongoose";
 
-import { ECourse } from "../enums/course.enum";
-import { ECourseFormat } from "../enums/courseFormat.enum";
-import { ECourseType } from "../enums/courseType.enum";
-import { EStatus } from "../enums/status.enum";
+import { ECourse, ECourseFormat, ECourseType, EStatus } from "../enums";
 import { Admin } from "./Admin.model";
 import { Comment } from "./Comment.model";
 

@@ -1,10 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
-import { orderService } from "../services/order.service";
-import { ICommonRes } from "../types/common.types";
-import { IOrder } from "../types/order.types";
-import { IQuery } from "../types/pagination.types";
-import { ITokenPayload } from "../types/token.types";
+import { orderService } from "../services";
+import { ICommonRes, IOrder, IQuery, ITokenPayload } from "../types";
 
 class OrderController {
   public async getAll(

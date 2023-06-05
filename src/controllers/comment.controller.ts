@@ -1,10 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
-import { commentService } from "../services/comment.service";
-import { IComment } from "../types/comment.types";
-import { ICommonRes } from "../types/common.types";
-import { IQuery } from "../types/pagination.types";
-import { ITokenPayload } from "../types/token.types";
+import { commentService } from "../services";
+import { IComment, ICommonRes, IQuery, ITokenPayload } from "../types";
 
 class CommentController {
   public async getAll(

@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 
 import { IAdmin } from "./admin.types";
-import {IComment} from "./comment.types";
+import { IComment } from "./comment.types";
 
 export interface IOrder {
   name: string;

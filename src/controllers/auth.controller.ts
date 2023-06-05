@@ -1,8 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
-import { authService } from "../services/auth.service";
-import { IAdmin } from "../types/admin.types";
-import { ITokenPair } from "../types/token.types";
+import { authService } from "../services";
+import { IAdmin, ITokenPair } from "../types";
 
 class AuthController {
   public async login(

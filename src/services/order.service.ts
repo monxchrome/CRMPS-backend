@@ -1,10 +1,9 @@
 import { Types } from "mongoose";
 
-import { ApiError } from "../errors/api.error";
-import { Order } from "../models/Order.model";
-import { userRepository } from "../repository/order.repository";
-import { IOrder } from "../types/order.types";
-import { IPaginationResponse, IQuery } from "../types/pagination.types";
+import { ApiError } from "../errors";
+import { Order } from "../models";
+import { userRepository } from "../repository";
+import { IOrder, IPaginationResponse, IQuery } from "../types";
 
 class OrderService {
   public async getPagination(query: IQuery): Promise<IPaginationResponse<any>> {
