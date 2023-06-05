@@ -15,12 +15,6 @@ router.post(
 );
 
 router.post(
-  "/register",
-  adminMiddleware.getDynamicallyAndThrow("email", "body"),
-  authController.register
-);
-
-router.post(
   "/refresh",
   authMiddleware.checkRefreshToken,
   authController.refresh

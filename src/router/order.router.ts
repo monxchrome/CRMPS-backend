@@ -9,13 +9,6 @@ export const orderRouter = router;
 
 router.get("/", orderController.getAll);
 
-router.post(
-  "/",
-  authMiddleware.checkAccessToken,
-  orderMiddleware.isValidCreate,
-  orderController.create
-);
-
 router.get(
   "/:orderId",
   authMiddleware.checkAccessToken,
