@@ -5,3 +5,4 @@ export * from "./auth.types";
 export * from "./admin.types";
 export * from "./comment.types";
 export * from "./order.types";
+export * from "./group.types";
