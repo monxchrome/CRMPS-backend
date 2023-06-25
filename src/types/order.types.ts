@@ -4,6 +4,7 @@ import { IAdmin } from "./admin.types";
 import { IComment } from "./comment.types";
 
 export interface IOrder {
+  _id?: string;
   name: string;
   surname: string;
   email: string;
@@ -15,5 +16,5 @@ export interface IOrder {
   sum: number;
   alreadyPaid: number;
   manager: IAdmin | Types.ObjectId;
-  comments: IComment | Types.ObjectId;
+  comments: IComment[] | Types.ObjectId;
 }

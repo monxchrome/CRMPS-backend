@@ -4,15 +4,11 @@ import { Order } from "../models";
 import { IOrder } from "../types";
 
 class OrderRepository {
-  public async getByAdminAndUser(
-    orderId: string,
-    adminId: string
-  ): Promise<IOrder> {
+  public async getByAdminAndUser(orderId: string): Promise<IOrder> {
     const result = await Order.aggregate([
       {
         $match: {
           _id: new Types.ObjectId(orderId),
-          manager: new Types.ObjectId(adminId),
         },
       },
       {
@@ -32,8 +28,30 @@ class OrderRepository {
       {
         $lookup: {
           from: "comments",
-          localField: "comments",
-          foreignField: "_id",
+          let: { commentIds: "$comments" },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $in: ["$_id", "$$commentIds"],
+                },
+              },
+            },
+            {
+              $lookup: {
+                from: "admins",
+                localField: "user",
+                foreignField: "_id",
+                as: "user",
+              },
+            },
+            {
+              $unwind: {
+                path: "$user",
+                preserveNullAndEmptyArrays: true,
+              },
+            },
+          ],
           as: "comments",
         },
       },
@@ -42,4 +60,4 @@ class OrderRepository {
   }
 }
 
-export const userRepository = new OrderRepository();
+export const orderRepository = new OrderRepository();

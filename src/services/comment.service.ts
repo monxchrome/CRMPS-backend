@@ -47,10 +47,7 @@ class CommentService {
         user: new Types.ObjectId(userId),
       });
 
-      await Order.updateOne(
-        { _id: orderId, comments: null },
-        { comments: comment }
-      );
+      await Order.updateOne({ _id: orderId }, { $push: { comments: comment } });
 
       return comment;
     } catch (e) {

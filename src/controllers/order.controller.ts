@@ -26,8 +26,8 @@ class OrderController {
     next: NextFunction
   ): Promise<Response<IOrder>> {
     try {
-      const { order, jwtPayload } = res.locals;
-      const result = await orderService.getById(order._id, jwtPayload._id);
+      const { order } = res.locals;
+      const result = await orderService.getById(order._id);
 
       return res.json(result);
     } catch (e) {

@@ -2,7 +2,7 @@ import { Types } from "mongoose";
 
 import { ApiError } from "../errors";
 import { Order } from "../models";
-import { userRepository } from "../repository";
+import { orderRepository } from "../repository";
 import { IOrder, IPaginationResponse, IQuery } from "../types";
 
 class OrderService {
@@ -26,6 +26,7 @@ class OrderService {
         .skip(skip)
         .sort(sort)
         .lean();
+
       const ordersCount = await Order.count();
 
       return {
@@ -40,9 +41,9 @@ class OrderService {
     }
   }
 
-  public async getById(orderId: string, adminId: string): Promise<IOrder> {
+  public async getById(orderId: string): Promise<IOrder> {
     try {
-      return await userRepository.getByAdminAndUser(orderId, adminId);
+      return await orderRepository.getByAdminAndUser(orderId);
     } catch (e) {
       throw new ApiError(e.message, e.status);
     }

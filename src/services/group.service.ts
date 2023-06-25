@@ -42,7 +42,7 @@ class GroupService {
     try {
       const group = await Group.create(data);
 
-      await Group.updateOne({ _id: orderId, group: null }, { group: group });
+      await Group.updateOne({ _id: orderId }, { group: group });
 
       return group;
     } catch (e) {

@@ -7,7 +7,7 @@ const router = Router();
 
 export const groupRouter = router;
 
-router.post("/group", groupController.getAll);
+router.get("/", groupController.getAll);
 
 router.post(
   "/:orderId",

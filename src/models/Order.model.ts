@@ -84,7 +84,6 @@ export const orderSchema = new Schema(
     comments: {
       type: Types.ObjectId,
       ref: Comment,
-      default: null,
     },
   },
   { versionKey: false, timestamps: true }

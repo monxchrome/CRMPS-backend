@@ -18,6 +18,7 @@ export class OrderValidator {
   private static status = Joi.valid(...Object.values(EStatus));
   private static sum = Joi.number();
   private static alreadyPaid = Joi.number();
+  private static group = Joi.string();
 
   static create = Joi.object({
     name: this.firstName,
@@ -45,5 +46,6 @@ export class OrderValidator {
     status: this.status,
     sum: this.sum,
     alreadyPaid: this.alreadyPaid,
+    group: this.group,
   });
 }
