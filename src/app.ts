@@ -12,7 +12,7 @@ import * as swaggerJson from "./utils/swagger.json";
 
 config();
 
-const app = express();
+export const app = express();
 
 app.use(cors());
 app.use(express.json());
